@@ -7,7 +7,6 @@ from src.mutations import (
     build_user_global_id,
 )
 
-
 def test_build_user_global_id_returns_non_empty_string():
 
     user_pk = 1
@@ -22,7 +21,6 @@ import base64
 from saleor.graphql.account.mutations.account.account_register import (
     build_user_global_id,
 )
-
 
 def test_build_user_global_id_returns_non_empty_string():
     user_pk = 1
