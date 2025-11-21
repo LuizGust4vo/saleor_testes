@@ -1,3 +1,5 @@
+# mutations.py
+
 import graphene
 from django.conf import settings
 from django.contrib.auth import password_validation
@@ -57,7 +59,28 @@ class AccountRegisterInput(AccountBaseInput):
         doc_category = DOC_CATEGORY_USERS
 
 
+import base64
+
+
+def build_user_global_id(user_pk: int) -> str:
+    raw = f"User:{user_pk}"
+    return base64.b64encode(raw.encode()).decode()
+
+
 class AccountRegister(DeprecatedModelMutation):
+    @classmethod
+    def success_response(cls, instance):
+        # gera ID corretamente (Ciclo 1 + 2)
+        user_pk = instance.pk
+        user_id = build_user_global_id(user_pk)
+
+        graphql_user = cls._meta.object_type(
+            id=user_id,
+            email=instance.email,
+        )
+
+        return cls(errors=[], user=graphql_user, requires_confirmation=False)
+
     user = graphene.Field(
         User,
         deprecation_reason=(
