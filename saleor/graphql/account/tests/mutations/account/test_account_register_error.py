@@ -37,7 +37,6 @@ mutation Register($input: AccountRegisterInput!) {
 }
 """
 
-
 def test_account_register_does_not_generate_id_on_error(api_client, db):
     variables = {"input": {"email": "", "password": "Senha123!"}}
 
