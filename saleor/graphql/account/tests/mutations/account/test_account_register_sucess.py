@@ -34,7 +34,6 @@ mutation Register($input: AccountRegisterInput!) {
 }
 """
 
-
 def test_account_register_populates_user_id_on_success(api_client, db):
     variables = {
         "input": {"email": "novo_usuario@example.com", "password": "SenhaForte123!"}
