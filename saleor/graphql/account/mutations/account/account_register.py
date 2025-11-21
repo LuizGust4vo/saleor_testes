@@ -58,19 +58,16 @@ class AccountRegisterInput(AccountBaseInput):
         description = "Fields required to create a user."
         doc_category = DOC_CATEGORY_USERS
 
-
 import base64
-
 
 def build_user_global_id(user_pk: int) -> str:
     raw = f"User:{user_pk}"
     return base64.b64encode(raw.encode()).decode()
 
-
 class AccountRegister(DeprecatedModelMutation):
     @classmethod
     def success_response(cls, instance):
-        # gera ID corretamente (Ciclo 1 + 2)
+
         user_pk = instance.pk
         user_id = build_user_global_id(user_pk)
 
